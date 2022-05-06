@@ -8,11 +8,15 @@ public class Player : MonoBehaviour
     public float speed;
     public float jumpForce;
     private Rigidbody2D rig;
+    private bool onTheGround;
+    private bool doubleJump;
 
     // Start is called before the first frame update
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        onTheGround = true;
+        doubleJump = false;
     }
 
     // Update is called once per frame
@@ -29,8 +33,30 @@ public class Player : MonoBehaviour
 
     void jump(){
         if(Input.GetButtonDown("Jump")){
-            rig.AddForce(new Vector2(0f, jumpForce),ForceMode2D.Impulse);   
 
+            if(onTheGround == true){
+                rig.AddForce(new Vector2(0f, jumpForce),ForceMode2D.Impulse);
+                doubleJump = true;
+            }else{
+                if(doubleJump){
+                    rig.AddForce(new Vector2(0f, jumpForce),ForceMode2D.Impulse);
+                    doubleJump = false;
+                }
+            }
+             
+
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.layer == 8){
+            onTheGround = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other) {
+        if(other.gameObject.layer == 8){
+            onTheGround = false;
         }
     }
 }
