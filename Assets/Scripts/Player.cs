@@ -88,6 +88,12 @@ public class Player : MonoBehaviour
             onTheGround = true;
             anim.SetBool("jump", false);
         }
+
+        if (other.gameObject.layer == 9)
+        {
+            GameController.instance.showGameOver();
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionExit2D(Collision2D other)
