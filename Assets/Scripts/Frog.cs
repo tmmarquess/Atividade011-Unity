@@ -20,11 +20,14 @@ public class Frog : MonoBehaviour
     public BoxCollider2D bc;
     public CircleCollider2D cc;
 
+    bool playerDead;
+
     // Start is called before the first frame update
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        playerDead = false;
     }
 
     // Update is called once per frame
@@ -47,7 +50,7 @@ public class Frog : MonoBehaviour
         {
             float height = other.contacts[0].point.y - headPoint.position.y;
 
-            if(height > 0){
+            if(height > 0 && !playerDead){
                 other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5,ForceMode2D.Impulse);
                 speed = 0;
                 anim.SetTrigger("die");
@@ -57,6 +60,10 @@ public class Frog : MonoBehaviour
                 rig.bodyType = RigidbodyType2D.Kinematic;
 
                 Destroy(gameObject, 0.33f);
+            }else{
+                playerDead = true;
+                GameController.instance.showGameOver();
+                Destroy(other.gameObject);
             }
         }
     }
