@@ -111,7 +111,6 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer == 7)
         {
             isBlowing = true;
-            doubleJump = false;
         }
     }
 

@@ -7990,6 +7990,10 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3089085806877690556, guid: 63f972b496c14ba4686750806d4b0eac, type: 3}
+      propertyPath: nextLvlName
+      value: lvl_5
+      objectReference: {fileID: 0}
     - target: {fileID: 3089085806877690557, guid: 63f972b496c14ba4686750806d4b0eac, type: 3}
       propertyPath: m_Name
       value: Next Level
