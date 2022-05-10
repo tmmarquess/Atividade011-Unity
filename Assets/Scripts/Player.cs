@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private bool onTheGround;
     private bool doubleJump;
 
+    private bool isBlowing;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class Player : MonoBehaviour
 
         onTheGround = true;
         doubleJump = false;
+        isBlowing = false;
     }
 
     // Update is called once per frame
@@ -59,7 +62,7 @@ public class Player : MonoBehaviour
 
     void jump()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !isBlowing)
         {
 
             if (onTheGround == true)
@@ -101,6 +104,21 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer == 8)
         {
             onTheGround = false;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+        if (other.gameObject.layer == 7)
+        {
+            isBlowing = true;
+            doubleJump = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.layer == 7)
+        {
+            isBlowing = false;
         }
     }
 }
