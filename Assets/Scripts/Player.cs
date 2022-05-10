@@ -37,14 +37,18 @@ public class Player : MonoBehaviour
     void move()
     {
         // a função 'Input.GetAxis("Horizontal")' varia entre os valores -1, 0 e 1
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        transform.position += movement * Time.deltaTime * speed;
+        //Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+        //transform.position += movement * Time.deltaTime * speed;
 
-        if (Input.GetAxis("Horizontal") != 0)
+        float movement = Input.GetAxis("Horizontal");
+
+        rig.velocity = new Vector2(movement * speed,rig.velocity.y);
+
+        if (movement != 0)
         {
             anim.SetBool("walk", true);
 
-            if (Input.GetAxis("Horizontal") < 0)
+            if (movement < 0)
             {
                 transform.eulerAngles = new Vector3(0f,180f,0f);
             }
